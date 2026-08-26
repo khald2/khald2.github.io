@@ -132,7 +132,7 @@
             border-right: 4px solid var(--text-title);
         }
         .info-item span { color: var(--text-highlight); font-weight: bold; }
-        
+
         #secret-three { cursor: pointer; color: inherit; text-decoration: none; font-weight: normal; }
 
         .social-title { font-size: 15px; color: var(--text-highlight); margin: 15px 0 10px 0; text-align: right; font-weight: bold; }
@@ -143,7 +143,7 @@
         .social-info i { font-size: 22px; color: var(--text-title); width: 25px; text-align: center; }
         .social-name { font-size: 14px; font-weight: bold; }
         .social-handle { font-size: 12px; color: var(--text-sub); }
-        
+
         .back-btn { background: rgba(255, 255, 255, 0.15); margin-top: 20px; width: 100%; color: var(--text-main); }
 
         .modal {
@@ -215,7 +215,7 @@
         <div id="infoScreen" style="display:none;">
             <h1>خالد ثائر رشيد</h1>
             <p>بطاقة التعريف الشخصية</p>
-            
+
             <div class="info-box">
                 <div class="info-item"><span>البريد الإلكتروني:</span><br>khald1mk0@gmail.com</div>
                 <div class="info-item"><span>رقم الهاتف:</span><br>0780<span id="secret-three">3</span>494710</div>
@@ -230,14 +230,10 @@
                         <div class="social-info"><i class="fa-brands fa-tiktok"></i><div><div class="social-name">TikTok</div><div class="social-handle">@vb_e11</div></div></div>
                         <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:12px; opacity:0.7;"></i>
                     </a>
-        <a href="https://t.me/vb_e0" target="_blank" class="social-btn">
-          <i class="fab fa-telegram"></i>
-          <div class="btn-text">
-            <span>Telegram</span>
-            <small>@vb_e0</small>
-          </div>
-          <i class="fas fa-external-link-alt"></i>
-        </a>
+                    <a href="https://t.me/vb_e0" target="_blank" class="social-card">
+                        <div class="social-info"><i class="fa-brands fa-telegram"></i><div><div class="social-name">Telegram</div><div class="social-handle">@vb_e0</div></div></div>
+                        <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:12px; opacity:0.7;"></i>
+                    </a>
                     <a href="https://discord.com/users/vb_e" target="_blank" class="social-card">
                         <div class="social-info"><i class="fa-brands fa-discord"></i><div><div class="social-name">Discord</div><div class="social-handle">vb_e</div></div></div>
                         <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:12px; opacity:0.7;"></i>
@@ -287,7 +283,7 @@
             const isLight = document.getElementById('themeToggle').checked;
             if (isLight) document.documentElement.setAttribute('data-theme', 'light');
             else document.documentElement.removeAttribute('data-theme');
-            
+
             toggleCount++;
             if (toggleCount === 7) {
                 openModal('flappyModal');
@@ -300,12 +296,12 @@
         function goBack() { document.getElementById('infoScreen').style.display = 'none'; document.getElementById('welcomeScreen').style.display = 'block'; }
 
         // تحكم الـ Modals
-        function openModal(id) { 
+        function openModal(id) {
             const modal = document.getElementById(id);
             modal.style.display = 'flex';
             setTimeout(() => modal.classList.add('show'), 10);
         }
-        function closeModal(id) { 
+        function closeModal(id) {
             const modal = document.getElementById(id);
             modal.classList.remove('show');
             setTimeout(() => { modal.style.display = 'none'; }, 300);
@@ -330,8 +326,8 @@
             let emptyCells = boardState.map((val, idx) => val === "" ? idx : null).filter(val => val !== null);
             if (emptyCells.length === 0) return;
             boardState[emptyCells[Math.floor(Math.random() * emptyCells.length)]] = "O"; renderBoard();
-            if (checkWinner("O")) { document.getElementById('gameStatus').innerText = "🤖 فاز الكمبيوتر!"; gameActive = false; } 
-            else if (boardState.every(cell => cell !== "")) { document.getElementById('gameStatus').innerText = "🤝 تعادل!"; gameActive = false; } 
+            if (checkWinner("O")) { document.getElementById('gameStatus').innerText = "🤖 فاز الكمبيوتر!"; gameActive = false; }
+            else if (boardState.every(cell => cell !== "")) { document.getElementById('gameStatus').innerText = "🤝 تعادل!"; gameActive = false; }
             else document.getElementById('gameStatus').innerText = "دورك باللعب (X)";
         }
         function renderBoard() {
@@ -361,13 +357,13 @@
                 // دوران الطائر بناءً على سرعة السقوط
                 this.rotation = Math.min(Math.PI / 4, Math.max(-Math.PI / 4, (this.velocity * 0.1)));
                 ctx.rotate(this.rotation);
-                
+
                 // جسم الطائر
                 ctx.beginPath();
                 ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
                 ctx.fillStyle = '#f1c40f'; ctx.fill();
                 ctx.lineWidth = 2; ctx.strokeStyle = '#d35400'; ctx.stroke();
-                
+
                 // الجناح (يتحرك)
                 ctx.beginPath();
                 ctx.ellipse(-4, 2, 7, 4, (frames % 20 < 10) ? -0.2 : 0.2, 0, Math.PI * 2);
@@ -399,7 +395,7 @@
                     // رسم الأنبوب بتدرج لوني يعطيه عمق 3D
                     let gradient = ctx.createLinearGradient(p.x, 0, p.x + this.width, 0);
                     gradient.addColorStop(0, '#58d68d'); gradient.addColorStop(0.5, '#2ecc71'); gradient.addColorStop(1, '#239b56');
-                    
+
                     ctx.fillStyle = gradient;
                     // الأنبوب العلوي
                     ctx.fillRect(p.x, 0, this.width, p.top);
@@ -486,4 +482,3 @@
     </script>
 </body>
 </html>
-<a href="https://t.me/vb_e0" target="_blank">Telegram</a>
