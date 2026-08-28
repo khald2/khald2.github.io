@@ -10,7 +10,6 @@
             --bg-color: #0d1117;
             --card-bg: #161b22;
             --accent-color: #58a6ff;
-            --neon-glow: #79c0ff;
             --text-color: #c9d1d9;
         }
 
@@ -56,24 +55,10 @@
             box-shadow: 0 0 15px var(--accent-color);
         }
 
-        h1 {
-            font-size: 1.5rem;
-            color: #fff;
-            margin-bottom: 5px;
-        }
+        h1 { font-size: 1.5rem; color: #fff; margin-bottom: 5px; }
+        p.bio { font-size: 0.9rem; color: #8b949e; margin-bottom: 20px; }
 
-        p.bio {
-            font-size: 0.9rem;
-            color: #8b949e;
-            margin-bottom: 20px;
-        }
-
-        .links {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 25px;
-        }
+        .links { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
 
         .link-btn {
             display: flex;
@@ -86,6 +71,7 @@
             color: #fff;
             text-decoration: none;
             font-weight: 500;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
 
@@ -93,6 +79,27 @@
             border-color: var(--accent-color);
             transform: translateY(-2px);
             box-shadow: 0 0 10px rgba(88, 166, 255, 0.3);
+        }
+
+        .audio-player {
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .play-btn {
+            background: var(--accent-color);
+            border: none;
+            color: #fff;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
         }
 
         .terminal {
@@ -106,12 +113,24 @@
             color: #7ee787;
         }
 
-        .terminal-header {
-            color: #8b949e;
-            border-bottom: 1px solid #21262d;
-            padding-bottom: 5px;
-            margin-bottom: 8px;
+        .toast {
+            visibility: hidden;
+            background-color: #238636;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 10px;
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
         }
+
+        .toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
+
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
     </style>
 </head>
 <body>
@@ -123,27 +142,63 @@
     <h1>خالد ثائر رشيد</h1>
     <p class="bio">مطور وشغوف بالتكنولوجيا | Developer & Tech Enthusiast</p>
 
+    <div class="audio-player">
+        <span style="font-size: 0.85rem;"><i class="fa-solid fa-music"></i> تشغيل الصوت</span>
+        <button class="play-btn" onclick="toggleAudio()"><i id="play-icon" class="fa-solid fa-play"></i></button>
+        <audio id="bg-audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+    </div>
+
     <div class="links">
         <a href="https://instagram.com/vp_e1" target="_blank" class="link-btn">
-            <span><i class="fa-brands fa-instagram"></i> Instagram</span>
+            <span><i class="fa-brands fa-instagram"></i> Instagram (@vp_e1)</span>
             <i class="fa-solid fa-arrow-left"></i>
         </a>
         <a href="https://tiktok.com/@vb_e11" target="_blank" class="link-btn">
-            <span><i class="fa-brands fa-tiktok"></i> TikTok</span>
+            <span><i class="fa-brands fa-tiktok"></i> TikTok (@vb_e11)</span>
             <i class="fa-solid fa-arrow-left"></i>
         </a>
+        <div class="link-btn" onclick="copyText('vb_e', 'Discord')">
+            <span><i class="fa-brands fa-discord"></i> Discord (vb_e)</span>
+            <i class="fa-regular fa-copy"></i>
+        </div>
         <a href="https://github.com/khald2" target="_blank" class="link-btn">
-            <span><i class="fa-brands fa-github"></i> GitHub</span>
+            <span><i class="fa-brands fa-github"></i> GitHub (khald2)</span>
             <i class="fa-solid fa-arrow-left"></i>
         </a>
     </div>
 
     <div class="terminal">
-        <div class="terminal-header">system@khald2:~ $ status</div>
+        <div style="color: #8b949e; border-bottom: 1px solid #21262d; padding-bottom: 5px; margin-bottom: 8px;">system@khald2:~ $ info</div>
         <div>> Status: Online</div>
-        <div>> Site version: 2.0 (Updated)</div>
+        <div>> OS: crDroid / Termux</div>
+        <div>> Device: Redmi Note 9 Pro</div>
     </div>
 </div>
+
+<div id="toast" class="toast">تم النسخ بنجاح!</div>
+
+<script>
+    function copyText(text, platform) {
+        navigator.clipboard.writeText(text);
+        var toast = document.getElementById("toast");
+        toast.innerText = "تم نسخ معرف " + platform + " بنجاح!";
+        toast.className = "toast show";
+        setTimeout(function(){ toast.className = toast.className.replace("toast show", "toast"); }, 3000);
+    }
+
+    function toggleAudio() {
+        var audio = document.getElementById("bg-audio");
+        var icon = document.getElementById("play-icon");
+        if (audio.paused) {
+            audio.play();
+            icon.className = "fa-solid fa-pause";
+        } else {
+            audio.pause();
+            icon.className = "fa-solid fa-pause";
+            icon.className = "fa-solid fa-play";
+        }
+    }
+</script>
 
 </body>
 </html>
