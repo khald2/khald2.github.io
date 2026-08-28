@@ -3,378 +3,330 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>خالد ثائر رشيد | PRO Portfolio</title>
+    <title>خالد ثائر رشيد | الموقع الرسمي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Fira+Code:wght@400;700&display=swap');
-
         :root {
-            --primary: #00ffcc;
-            --secondary: #b142f5;
-            --bg-dark: #0a0a0f;
-            --glass-bg: rgba(20, 20, 30, 0.6);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --bg-color: #090a0f;
+            --primary-color: #00f0ff;
+            --secondary-color: #8a2be2;
+            --text-main: #ffffff;
+            --text-muted: #a0a0b0;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: #fff;
-            font-family: 'Cairo', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow-x: hidden;
-            position: relative;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
         }
 
-        /* Animated Background */
-        .bg-animation {
+        #welcome-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at 15% 50%, rgba(0, 255, 204, 0.08), transparent 25%),
-                        radial-gradient(circle at 85% 30%, rgba(177, 66, 245, 0.1), transparent 25%);
-            z-index: -1;
-            animation: pulseBg 10s infinite alternate;
+            background: radial-gradient(circle at center, #1a1a24 0%, var(--bg-color) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1), opacity 1s ease;
         }
 
-        @keyframes pulseBg {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
-        }
-
-        /* Main Container */
-        .container {
-            width: 90%;
-            max-width: 500px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 35px 25px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
-            position: relative;
-            z-index: 1;
-            margin: 40px 0;
-        }
-
-        /* Profile Section */
-        .profile {
+        .welcome-text {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
             text-align: center;
+        }
+
+        .welcome-subtext {
+            font-size: 1.1rem;
+            color: var(--text-muted);
             margin-bottom: 30px;
         }
 
-        .avatar-container {
-            position: relative;
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
+        .cyber-btn {
+            background: transparent;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 12px 40px;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .avatar {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        .cyber-btn:hover {
+            background: var(--primary-color);
+            color: #000;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.6);
+            transform: translateY(-3px);
+        }
+
+        #main-content {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1.2s ease;
+        }
+
+        #main-content.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .split-pane {
+            flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 50px;
-            color: #111;
-            box-shadow: 0 0 25px rgba(0, 255, 204, 0.5);
+            padding: 30px;
             position: relative;
-            z-index: 2;
         }
 
-        .avatar-ring {
-            position: absolute;
-            top: -5px; left: -5px; right: -5px; bottom: -5px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            border-top-color: var(--primary);
-            border-bottom-color: var(--secondary);
-            animation: spin 3s linear infinite;
+        .right-pane {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.05) 0%, transparent 100%);
+            border-left: 1px solid var(--glass-border);
         }
 
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
+        .left-pane {
+            background: linear-gradient(-135deg, rgba(0, 240, 255, 0.05) 0%, transparent 100%);
         }
 
-        h1 {
-            font-size: 1.8rem;
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 35px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+
+        .glass-card.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .profile-title {
+            font-size: 2rem;
             font-weight: 900;
-            letter-spacing: 1px;
-            background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             margin-bottom: 5px;
         }
 
-        .subtitle {
-            color: #a0a0b0;
-            font-size: 0.95rem;
-            margin-bottom: 15px;
+        .profile-subtitle {
+            color: var(--primary-color);
+            font-size: 1rem;
+            margin-bottom: 20px;
         }
 
-        /* Social Grid (Direct Links) */
-        .social-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
+        .info-list {
+            list-style: none;
+            margin-bottom: 20px;
         }
 
-        .social-btn {
+        .info-list li {
+            margin-bottom: 12px;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            color: #e0e0e0;
+            gap: 12px;
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        .info-list i {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            color: var(--text-main);
             text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .social-btn i {
-            font-size: 1.6rem;
-            margin-bottom: 8px;
-            transition: all 0.3s;
-        }
-
-        .social-btn span {
-            font-size: 0.85rem;
-            font-weight: 700;
-        }
-
-        /* Hover Effects for Specific Brands */
-        .social-btn.telegram:hover { border-color: #0088cc; box-shadow: 0 0 15px rgba(0, 136, 204, 0.3); }
-        .social-btn.telegram:hover i { color: #0088cc; }
-        
-        .social-btn.discord:hover { border-color: #5865F2; box-shadow: 0 0 15px rgba(88, 101, 242, 0.3); }
-        .social-btn.discord:hover i { color: #5865F2; }
-
-        .social-btn.insta:hover { border-color: #E1306C; box-shadow: 0 0 15px rgba(225, 48, 108, 0.3); }
-        .social-btn.insta:hover i { color: #E1306C; }
-
-        .social-btn.tiktok:hover { border-color: #00f2fe; box-shadow: 0 0 15px rgba(0, 242, 254, 0.3); }
-        .social-btn.tiktok:hover i { color: #00f2fe; }
-
-        .social-btn.github:hover { border-color: #fff; box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); }
-        .social-btn.github:hover i { color: #fff; }
-
-        .social-btn.contact:hover { border-color: var(--primary); box-shadow: 0 0 15px rgba(0, 255, 204, 0.3); }
-        .social-btn.contact:hover i { color: var(--primary); }
-
-
-        .social-btn:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        /* Interactive Terminal */
-        .terminal-container {
-            background: #050508;
-            border: 1px solid #333;
-            border-radius: 12px;
-            padding: 15px;
-            text-align: left;
-            direction: ltr;
-            font-family: 'Fira Code', monospace;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
-        }
-
-        .terminal-header {
+            width: 40px;
+            height: 40px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            border-bottom: 1px solid #222;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            font-size: 1.1rem;
+            transition: 0.3s;
+            border: 1px solid var(--glass-border);
         }
 
-        .mac-btns {
-            display: flex;
-            gap: 6px;
+        .social-links a:hover {
+            background: var(--primary-color);
+            color: #000;
+            transform: translateY(-3px);
         }
 
-        .mac-btn { width: 12px; height: 12px; border-radius: 50%; }
-        .mac-btn.close { background: #ff5f56; }
-        .mac-btn.min { background: #ffbd2e; }
-        .mac-btn.max { background: #27c93f; }
-
-        .terminal-title {
-            color: #888;
-            font-size: 0.8rem;
+        .main-content-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            border-bottom: 2px solid rgba(0, 240, 255, 0.2);
+            padding-bottom: 8px;
+            display: inline-block;
         }
 
-        .terminal-output {
-            color: var(--primary);
-            font-size: 0.85rem;
-            line-height: 1.5;
-            min-height: 80px;
-            max-height: 150px;
-            overflow-y: auto;
+        .typewriter-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+            min-height: 120px;
         }
 
-        .terminal-output .user-text { color: #fff; }
-        .terminal-output .system-text { color: #888; }
-        .terminal-output .error-text { color: #ff5f56; }
-
-        .terminal-input-line {
-            display: flex;
-            align-items: center;
-            margin-top: 10px;
-            color: #fff;
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 18px;
+            background-color: var(--primary-color);
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+            margin-right: 4px;
         }
 
-        .prompt {
-            color: var(--secondary);
-            margin-right: 8px;
-            font-weight: bold;
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
-        .terminal-input {
-            background: transparent;
-            border: none;
-            color: #fff;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.85rem;
-            width: 100%;
-            outline: none;
+        @media (max-width: 768px) {
+            body {
+                overflow-y: auto;
+                height: auto;
+            }
+            #main-content {
+                flex-direction: column;
+                height: auto;
+            }
+            .split-pane {
+                min-height: 100vh;
+                padding: 20px;
+            }
+            .right-pane {
+                border-left: none;
+                border-bottom: 1px solid var(--glass-border);
+            }
+            .welcome-text {
+                font-size: 2.5rem;
+            }
         }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
     </style>
 </head>
 <body>
 
-<div class="bg-animation"></div>
-
-<div class="container">
-    <div class="profile">
-        <div class="avatar-container">
-            <div class="avatar-ring"></div>
-            <div class="avatar"><i class="fa-solid fa-user-ninja"></i></div>
-        </div>
-        <h1>خالد ثائر رشيد</h1>
-        <p class="subtitle">Android Modder & Web Developer</p>
+    <div id="welcome-screen">
+        <h1 class="welcome-text">مرحباً بك</h1>
+        <p class="welcome-subtext">النظام جاهز للتشغيل. اضغط للبدء</p>
+        <button id="start-btn" class="cyber-btn">
+            <i class="fa-solid fa-power-off"></i>
+            <span>تشغيل النظام</span>
+        </button>
     </div>
 
-    <!-- الروابط المباشرة (انتقال فوري بدون نسخ) -->
-    <div class="social-grid">
-        <a href="https://t.me/vb_e" target="_blank" class="social-btn telegram">
-            <i class="fa-brands fa-telegram"></i>
-            <span>Telegram</span>
-        </a>
-        
-        <a href="https://discord.com/users/vb_e" target="_blank" class="social-btn discord">
-            <i class="fa-brands fa-discord"></i>
-            <span>Discord</span>
-        </a>
+    <div id="main-content">
+        <div class="split-pane right-pane">
+            <div class="glass-card" id="card-right">
+                <h2 class="profile-title">خالد ثائر رشيد</h2>
+                <p class="profile-subtitle">System Administrator & Developer</p>
+                
+                <ul class="info-list">
+                    <li><i class="fa-solid fa-envelope"></i> khald1mk0@gmail.com</li>
+                    <li><i class="fa-solid fa-phone"></i> 07803494710</li>
+                </ul>
 
-        <a href="https://instagram.com/vp_e1" target="_blank" class="social-btn insta">
-            <i class="fa-brands fa-instagram"></i>
-            <span>Instagram</span>
-        </a>
-
-        <a href="https://tiktok.com/@vb_e11" target="_blank" class="social-btn tiktok">
-            <i class="fa-brands fa-tiktok"></i>
-            <span>TikTok</span>
-        </a>
-
-        <a href="https://github.com/khald2" target="_blank" class="social-btn github">
-            <i class="fa-brands fa-github"></i>
-            <span>GitHub</span>
-        </a>
-
-        <a href="mailto:khald1mk0@gmail.com" class="social-btn contact">
-            <i class="fa-solid fa-envelope"></i>
-            <span>Email Me</span>
-        </a>
-    </div>
-
-    <!-- تيرمينال تفاعلي حقيقي -->
-    <div class="terminal-container">
-        <div class="terminal-header">
-            <div class="mac-btns">
-                <div class="mac-btn close"></div>
-                <div class="mac-btn min"></div>
-                <div class="mac-btn max"></div>
+                <div class="social-links">
+                    <a href="https://github.com/khald2" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://discord.com/users/vb_e" target="_blank" title="Discord"><i class="fa-brands fa-discord"></i></a>
+                    <a href="https://instagram.com/vp_e1" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://tiktok.com/@vb_e11" target="_blank" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
             </div>
-            <div class="terminal-title">khald2@termux:~</div>
         </div>
-        
-        <div class="terminal-output" id="term-output">
-            <span class="system-text">Type <span style="color:#00ffcc">help</span> to view available commands.</span><br>
-        </div>
-        
-        <div class="terminal-input-line">
-            <span class="prompt">$</span>
-            <input type="text" class="terminal-input" id="term-input" autocomplete="off" spellcheck="false" autofocus>
+
+        <div class="split-pane left-pane">
+            <div class="glass-card" id="card-left">
+                <h3 class="main-content-title">الكلام الأساسي</h3>
+                <div class="typewriter-text">
+                    <span id="typed-output"></span><span class="cursor"></span>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    const termInput = document.getElementById('term-input');
-    const termOutput = document.getElementById('term-output');
+    <script>
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const mainContent = document.getElementById('main-content');
+        const startBtn = document.getElementById('start-btn');
+        const cardRight = document.getElementById('card-right');
+        const cardLeft = document.getElementById('card-left');
+        const typedOutput = document.getElementById('typed-output');
 
-    // الأوامر المتاحة وردودها التلقائية
-    const commands = {
-        'help': 'Available commands: <br> - <span style="color:#00ffcc">whoami</span> : Show info <br> - <span style="color:#00ffcc">device</span> : Show device specs <br> - <span style="color:#00ffcc">contact</span> : Show contact info <br> - <span style="color:#00ffcc">clear</span> : Clear terminal',
-        'whoami': 'Name: Khalid Thaer Rasheed <br> Age: 15 <br> Skills: HTML, CSS, JS, Termux, Android Rooting.',
-        'device': 'Device: Redmi Note 9 Pro (Indian) <br> ROM: crDroid <br> Root Status: Magisk Active + Zygisk',
-        'contact': 'Phone: 07803494710 <br> Email: khald1mk0@gmail.com',
-        'clear': 'CLEAR'
-    };
+        const textToType = "هذه هي المساحة المخصصة للكلام الأساسي. تم تصميم هذا النظام ليوفر لك أقوى أداء وأجمل واجهة برمجية تتناسب مع تطلعاتك التقنية...";
+        let typeIndex = 0;
 
-    termInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            const cmd = termInput.value.trim().toLowerCase();
-            termInput.value = '';
-
-            if(cmd === '') return;
-
-            // طباعة الأمر الذي كتبه المستخدم
-            termOutput.innerHTML += `<div><span class="prompt">$</span><span class="user-text">${cmd}</span></div>`;
-
-            // الرد على الأمر
-            if(cmd === 'clear') {
-                termOutput.innerHTML = '';
-            } else if (commands[cmd]) {
-                termOutput.innerHTML += `<div>${commands[cmd]}</div>`;
+        function typeWriter() {
+            if (typeIndex < textToType.length) {
+                typedOutput.innerHTML += textToType.charAt(typeIndex);
+                typeIndex++;
+                setTimeout(typeWriter, 40);
             } else {
-                termOutput.innerHTML += `<div><span class="error-text">bash: ${cmd}: command not found</span></div>`;
+                document.querySelector('.cursor').style.display = 'none';
             }
-
-            // التمرير للأسفل تلقائياً
-            termOutput.scrollTop = termOutput.scrollHeight;
         }
-    });
 
-    // إبقاء التركيز على مربع الإدخال عند النقر على الترمينال
-    document.querySelector('.terminal-container').addEventListener('click', () => {
-        termInput.focus();
-    });
-</script>
+        startBtn.addEventListener('click', () => {
+            welcomeScreen.style.transform = 'translateY(-100vh)';
+            welcomeScreen.style.opacity = '0';
 
+            setTimeout(() => {
+                welcomeScreen.style.display = 'none';
+                mainContent.classList.add('active');
+                
+                setTimeout(() => {
+                    cardRight.classList.add('show');
+                    cardLeft.classList.add('show');
+                    setTimeout(typeWriter, 600);
+                }, 200);
+
+            }, 800);
+        });
+    </script>
 </body>
 </html>
+
