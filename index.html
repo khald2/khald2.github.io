@@ -3,201 +3,377 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>خالد ثائر رشيد | Khalid</title>
+    <title>خالد ثائر رشيد | PRO Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Fira+Code:wght@400;700&display=swap');
+
         :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --accent-color: #58a6ff;
-            --text-color: #c9d1d9;
+            --primary: #00ffcc;
+            --secondary: #b142f5;
+            --bg-dark: #0a0a0f;
+            --glass-bg: rgba(20, 20, 30, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-sizing: border-box;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--bg-dark);
+            color: #fff;
+            font-family: 'Cairo', sans-serif;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
         }
 
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 15% 50%, rgba(0, 255, 204, 0.08), transparent 25%),
+                        radial-gradient(circle at 85% 30%, rgba(177, 66, 245, 0.1), transparent 25%);
+            z-index: -1;
+            animation: pulseBg 10s infinite alternate;
+        }
+
+        @keyframes pulseBg {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        /* Main Container */
         .container {
-            width: 100%;
-            max-width: 450px;
-            background: var(--card-bg);
-            border: 1px solid #30363d;
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            width: 90%;
+            max-width: 500px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 35px 25px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+            position: relative;
+            z-index: 1;
+            margin: 40px 0;
+        }
+
+        /* Profile Section */
+        .profile {
             text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
         }
 
         .avatar {
-            width: 100px;
-            height: 100px;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
-            background: linear-gradient(45deg, var(--accent-color), #bc8cff);
-            margin: 0 auto 15px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+            color: #111;
+            box-shadow: 0 0 25px rgba(0, 255, 204, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        .avatar-ring {
+            position: absolute;
+            top: -5px; left: -5px; right: -5px; bottom: -5px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: var(--primary);
+            border-bottom-color: var(--secondary);
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #a0a0b0;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        /* Social Grid (Direct Links) */
+        .social-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .social-btn {
+            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 40px;
-            color: #fff;
-            box-shadow: 0 0 15px var(--accent-color);
-        }
-
-        h1 { font-size: 1.5rem; color: #fff; margin-bottom: 5px; }
-        p.bio { font-size: 0.9rem; color: #8b949e; margin-bottom: 20px; }
-
-        .links { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
-
-        .link-btn {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 20px;
-            background: #21262d;
-            border: 1px solid #30363d;
-            border-radius: 10px;
-            color: #fff;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            color: #e0e0e0;
             text-decoration: none;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
         }
 
-        .link-btn:hover {
-            border-color: var(--accent-color);
-            transform: translateY(-2px);
-            box-shadow: 0 0 10px rgba(88, 166, 255, 0.3);
+        .social-btn i {
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+            transition: all 0.3s;
         }
 
-        .audio-player {
-            background: #21262d;
-            border: 1px solid #30363d;
-            border-radius: 10px;
-            padding: 10px 15px;
-            margin-bottom: 20px;
+        .social-btn span {
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        /* Hover Effects for Specific Brands */
+        .social-btn.telegram:hover { border-color: #0088cc; box-shadow: 0 0 15px rgba(0, 136, 204, 0.3); }
+        .social-btn.telegram:hover i { color: #0088cc; }
+        
+        .social-btn.discord:hover { border-color: #5865F2; box-shadow: 0 0 15px rgba(88, 101, 242, 0.3); }
+        .social-btn.discord:hover i { color: #5865F2; }
+
+        .social-btn.insta:hover { border-color: #E1306C; box-shadow: 0 0 15px rgba(225, 48, 108, 0.3); }
+        .social-btn.insta:hover i { color: #E1306C; }
+
+        .social-btn.tiktok:hover { border-color: #00f2fe; box-shadow: 0 0 15px rgba(0, 242, 254, 0.3); }
+        .social-btn.tiktok:hover i { color: #00f2fe; }
+
+        .social-btn.github:hover { border-color: #fff; box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); }
+        .social-btn.github:hover i { color: #fff; }
+
+        .social-btn.contact:hover { border-color: var(--primary); box-shadow: 0 0 15px rgba(0, 255, 204, 0.3); }
+        .social-btn.contact:hover i { color: var(--primary); }
+
+
+        .social-btn:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Interactive Terminal */
+        .terminal-container {
+            background: #050508;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: left;
+            direction: ltr;
+            font-family: 'Fira Code', monospace;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #222;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .mac-btns {
+            display: flex;
+            gap: 6px;
+        }
+
+        .mac-btn { width: 12px; height: 12px; border-radius: 50%; }
+        .mac-btn.close { background: #ff5f56; }
+        .mac-btn.min { background: #ffbd2e; }
+        .mac-btn.max { background: #27c93f; }
+
+        .terminal-title {
+            color: #888;
+            font-size: 0.8rem;
+        }
+
+        .terminal-output {
+            color: var(--primary);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            min-height: 80px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .terminal-output .user-text { color: #fff; }
+        .terminal-output .system-text { color: #888; }
+        .terminal-output .error-text { color: #ff5f56; }
+
+        .terminal-input-line {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            margin-top: 10px;
+            color: #fff;
         }
 
-        .play-btn {
-            background: var(--accent-color);
+        .prompt {
+            color: var(--secondary);
+            margin-right: 8px;
+            font-weight: bold;
+        }
+
+        .terminal-input {
+            background: transparent;
             border: none;
             color: #fff;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .terminal {
-            background: #000;
-            border-radius: 8px;
-            padding: 12px;
-            text-align: right;
-            font-family: monospace;
+            font-family: 'Fira Code', monospace;
             font-size: 0.85rem;
-            border: 1px solid #30363d;
-            color: #7ee787;
+            width: 100%;
+            outline: none;
         }
 
-        .toast {
-            visibility: hidden;
-            background-color: #238636;
-            color: #fff;
-            text-align: center;
-            border-radius: 8px;
-            padding: 10px;
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1;
-        }
-
-        .toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
-
-        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
-        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
     </style>
 </head>
 <body>
 
+<div class="bg-animation"></div>
+
 <div class="container">
-    <div class="avatar">
-        <i class="fa-solid fa-code"></i>
-    </div>
-    <h1>خالد ثائر رشيد</h1>
-    <p class="bio">مطور وشغوف بالتكنولوجيا | Developer & Tech Enthusiast</p>
-
-    <div class="audio-player">
-        <span style="font-size: 0.85rem;"><i class="fa-solid fa-music"></i> تشغيل الصوت</span>
-        <button class="play-btn" onclick="toggleAudio()"><i id="play-icon" class="fa-solid fa-play"></i></button>
-        <audio id="bg-audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
-    </div>
-
-    <div class="links">
-        <a href="https://instagram.com/vp_e1" target="_blank" class="link-btn">
-            <span><i class="fa-brands fa-instagram"></i> Instagram (@vp_e1)</span>
-            <i class="fa-solid fa-arrow-left"></i>
-        </a>
-        <a href="https://tiktok.com/@vb_e11" target="_blank" class="link-btn">
-            <span><i class="fa-brands fa-tiktok"></i> TikTok (@vb_e11)</span>
-            <i class="fa-solid fa-arrow-left"></i>
-        </a>
-        <div class="link-btn" onclick="copyText('vb_e', 'Discord')">
-            <span><i class="fa-brands fa-discord"></i> Discord (vb_e)</span>
-            <i class="fa-regular fa-copy"></i>
+    <div class="profile">
+        <div class="avatar-container">
+            <div class="avatar-ring"></div>
+            <div class="avatar"><i class="fa-solid fa-user-ninja"></i></div>
         </div>
-        <a href="https://github.com/khald2" target="_blank" class="link-btn">
-            <span><i class="fa-brands fa-github"></i> GitHub (khald2)</span>
-            <i class="fa-solid fa-arrow-left"></i>
+        <h1>خالد ثائر رشيد</h1>
+        <p class="subtitle">Android Modder & Web Developer</p>
+    </div>
+
+    <!-- الروابط المباشرة (انتقال فوري بدون نسخ) -->
+    <div class="social-grid">
+        <a href="https://t.me/vb_e" target="_blank" class="social-btn telegram">
+            <i class="fa-brands fa-telegram"></i>
+            <span>Telegram</span>
+        </a>
+        
+        <a href="https://discord.com/users/vb_e" target="_blank" class="social-btn discord">
+            <i class="fa-brands fa-discord"></i>
+            <span>Discord</span>
+        </a>
+
+        <a href="https://instagram.com/vp_e1" target="_blank" class="social-btn insta">
+            <i class="fa-brands fa-instagram"></i>
+            <span>Instagram</span>
+        </a>
+
+        <a href="https://tiktok.com/@vb_e11" target="_blank" class="social-btn tiktok">
+            <i class="fa-brands fa-tiktok"></i>
+            <span>TikTok</span>
+        </a>
+
+        <a href="https://github.com/khald2" target="_blank" class="social-btn github">
+            <i class="fa-brands fa-github"></i>
+            <span>GitHub</span>
+        </a>
+
+        <a href="mailto:khald1mk0@gmail.com" class="social-btn contact">
+            <i class="fa-solid fa-envelope"></i>
+            <span>Email Me</span>
         </a>
     </div>
 
-    <div class="terminal">
-        <div style="color: #8b949e; border-bottom: 1px solid #21262d; padding-bottom: 5px; margin-bottom: 8px;">system@khald2:~ $ info</div>
-        <div>> Status: Online</div>
-        <div>> OS: crDroid / Termux</div>
-        <div>> Device: Redmi Note 9 Pro</div>
+    <!-- تيرمينال تفاعلي حقيقي -->
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <div class="mac-btns">
+                <div class="mac-btn close"></div>
+                <div class="mac-btn min"></div>
+                <div class="mac-btn max"></div>
+            </div>
+            <div class="terminal-title">khald2@termux:~</div>
+        </div>
+        
+        <div class="terminal-output" id="term-output">
+            <span class="system-text">Type <span style="color:#00ffcc">help</span> to view available commands.</span><br>
+        </div>
+        
+        <div class="terminal-input-line">
+            <span class="prompt">$</span>
+            <input type="text" class="terminal-input" id="term-input" autocomplete="off" spellcheck="false" autofocus>
+        </div>
     </div>
 </div>
 
-<div id="toast" class="toast">تم النسخ بنجاح!</div>
-
 <script>
-    function copyText(text, platform) {
-        navigator.clipboard.writeText(text);
-        var toast = document.getElementById("toast");
-        toast.innerText = "تم نسخ معرف " + platform + " بنجاح!";
-        toast.className = "toast show";
-        setTimeout(function(){ toast.className = toast.className.replace("toast show", "toast"); }, 3000);
-    }
+    const termInput = document.getElementById('term-input');
+    const termOutput = document.getElementById('term-output');
 
-    function toggleAudio() {
-        var audio = document.getElementById("bg-audio");
-        var icon = document.getElementById("play-icon");
-        if (audio.paused) {
-            audio.play();
-            icon.className = "fa-solid fa-pause";
-        } else {
-            audio.pause();
-            icon.className = "fa-solid fa-pause";
-            icon.className = "fa-solid fa-play";
+    // الأوامر المتاحة وردودها التلقائية
+    const commands = {
+        'help': 'Available commands: <br> - <span style="color:#00ffcc">whoami</span> : Show info <br> - <span style="color:#00ffcc">device</span> : Show device specs <br> - <span style="color:#00ffcc">contact</span> : Show contact info <br> - <span style="color:#00ffcc">clear</span> : Clear terminal',
+        'whoami': 'Name: Khalid Thaer Rasheed <br> Age: 15 <br> Skills: HTML, CSS, JS, Termux, Android Rooting.',
+        'device': 'Device: Redmi Note 9 Pro (Indian) <br> ROM: crDroid <br> Root Status: Magisk Active + Zygisk',
+        'contact': 'Phone: 07803494710 <br> Email: khald1mk0@gmail.com',
+        'clear': 'CLEAR'
+    };
+
+    termInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            const cmd = termInput.value.trim().toLowerCase();
+            termInput.value = '';
+
+            if(cmd === '') return;
+
+            // طباعة الأمر الذي كتبه المستخدم
+            termOutput.innerHTML += `<div><span class="prompt">$</span><span class="user-text">${cmd}</span></div>`;
+
+            // الرد على الأمر
+            if(cmd === 'clear') {
+                termOutput.innerHTML = '';
+            } else if (commands[cmd]) {
+                termOutput.innerHTML += `<div>${commands[cmd]}</div>`;
+            } else {
+                termOutput.innerHTML += `<div><span class="error-text">bash: ${cmd}: command not found</span></div>`;
+            }
+
+            // التمرير للأسفل تلقائياً
+            termOutput.scrollTop = termOutput.scrollHeight;
         }
-    }
+    });
+
+    // إبقاء التركيز على مربع الإدخال عند النقر على الترمينال
+    document.querySelector('.terminal-container').addEventListener('click', () => {
+        termInput.focus();
+    });
 </script>
 
 </body>
